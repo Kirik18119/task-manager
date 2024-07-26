@@ -23,3 +23,6 @@
 ### Tables short defintion:
 > users: id first name last name email password \
 > tasks: id, title, description, assigned user, date time of creation, date time of last update, status (one of these values: NEW, IN PROGRESS, REVIEW, DONE)
+
+### It is not allowed to use .html files, only .html.twig files with rendering from the controller
+### Also, no requiring among classes, you must use composer and class autoloading using namespaces 
