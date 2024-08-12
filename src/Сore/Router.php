@@ -6,17 +6,20 @@ namespace App\Сore;
 class Router
 {
 
-    private array $routes = [];
+    private static array $routes = [];
+    private Application $app;
     private string $path;
 
-    public function __construct()
+    public function __construct(Application $app)
     {
-        $this->path = substr(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),13);
+        $this->app = $app;
+        require_once dirname(__DIR__, 2) . '/routes/web.php';
+        $this->path = $this->app->getRequest()->getUri();
     }
 
-    public function add($method, $path, $controller)
+    public static function add($method, $path, $controller)
     {
-        $this->routes[] = [
+        self::$routes[] = [
             'path' => $path,
             'method' => strtoupper($method),
             'controller' => $controller,
@@ -27,9 +30,9 @@ class Router
     public function dispatch()
     {
         $path = $this->path;
-        $method = strtoupper($_SERVER['REQUEST_METHOD']);
+        $method = $this->app->getRequest()->getMethod();
         $foundRoute = [];
-        foreach ($this->routes as $route) {
+        foreach (self::$routes as $route) {
             if (
                 preg_match("#^{$route['path']}$#", $path) and $route['method'] == $method
             )
