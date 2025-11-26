@@ -4,18 +4,18 @@ CREATE TABLE users
     first_name VARCHAR(10) NOT NULL,
     last_name VARCHAR(10) NOT NULL,
     is_admin BOOLEAN,
-    category VARCHAR(20) DEFAULT 'testing'
+    category VARCHAR(20)
 );
 
 CREATE TABLE tasks
 (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR (50) NOT NULL,
-    description VARCHAR(100),
+    description TEXT,
     status VARCHAR(20) DEFAULT 'to-do',
     estimated_hours INT,
-    created_at DATETIME,
-    deleted_at DATETIME
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL
 );
 
 CREATE TABLE task_progress
@@ -35,7 +35,7 @@ CREATE TABLE task_files
     id INT AUTO_INCREMENT,
     task_id INT,
     FOREIGN KEY (task_id) REFERENCES tasks (id),
-    file_path LONGBLOB
+    file_path VARCHAR(100)
 );
 
 CREATE TABLE task_status_history
@@ -43,9 +43,9 @@ CREATE TABLE task_status_history
     id INT AUTO_INCREMENT,
     task_id INT,
     FOREIGN KEY (task_id) REFERENCES tasks (id),
-    old_status VARCHAR(20) DEFAULT 'to-do',
-    new_status VARCHAR(20) DEFAULT 'to-do',
-    created_at DATETIME
+    old_status VARCHAR(20),
+    new_status VARCHAR(20),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE task_assigment_history
 (
