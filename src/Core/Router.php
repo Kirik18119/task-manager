@@ -1,47 +1,46 @@
 <?php
 
 namespace App\Core;
+
+use App\Controller\TaskController;
 class Router
 {
+    private $routes = [
+        'tasks' => TaskController::class
+    ];
 
-    /** Сделать обрезку URL до предпоследнего '/'*
-     *  Route в формате ControllerName/methodName
-     *  Разделить route на Controller и Метод
-    */
-
-    public string $url;
-    public string $method;
-    public string $controller;
-
-    public function __construct()
+    public function __construct(private readonly Application $app)
     {
-        $request = new Request();
-        $this->url = $request->getUrl();
-        $this->method= substr($this->url, strrpos($this->url, '/')-1); // http://localhost/task-manager/src/Controllers/users/create
-        $this->controller =
+        
     }
 
-    public function dispatch()
+    public function dispatch(): void
     {
-        $routes = [
-            'UserConrtroller' => [
-                '/createUser' => 'createUser',
-                '/updateUser' => 'updateUser',
-                '/deleteUser' => 'deleteUser',
-            ]
-        ];
+        $requestParams = $this->app->request->parseUri();
 
-        foreach ($routes as $this->controller => $method) {
-            [$class, $function] = [$this->controller, $method];
-            $controllerInstance = new $class();
-            $controllerInstance->{$function}();
+        $controllerKey = $requestParams['controllerKey'];
+        $controllerClassName = $this->routes[$controllerKey];
+
+        if ($controllerClassName === null) 
+        {
+            $this->redirectToNotFound();
         }
 
+        $controller = new $controllerClassName();
+        $method = $requestParams['methodKey'];
 
+        if (!method_exists($controllerClassName, $method))
+        {
+            $this->redirectToNotFound();
+        }
 
+        $controller->$method();
     }
 
-
-
+    private function redirectToNotFound(): void
+    {
+        echo 'Not found';
+        exit;
+    }
 }
 

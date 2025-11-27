@@ -4,17 +4,16 @@ namespace App\Core;
 Class Application
 {
     private Router $router;
-    private Request $request;
+    public Request $request;
 
     public function __construct()
     {
         $this->request = new Request();
-        $this->router = new Router();
-
+        $this->router = new Router($this);
     }
 
    public function run()
    {
-
+        $this->router->dispatch();
    }
 }

@@ -8,6 +8,12 @@
 
 ## Детализация
 
+### Запуск
+    ```
+    composer install
+    php -S localhost:8000 index.php
+    ```
+
 ### Зависимости
 
 * PHP >= 8.2

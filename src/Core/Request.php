@@ -1,27 +1,55 @@
 <?php
 
 namespace App\Core;
-var_dump($_SERVER['REQUEST_URI']);
 
 class Request
 {
-    private array $get;
-    private array $post;
-    private array $server;
-    private array $cookies;
-    private array $files;
+    private const DOMAIN = 'http://localhost:8000/';
 
     public function __construct()
     {
-        $this->get = $_GET;
-        $this->post = $_POST;
-        $this->server = $_SERVER;
-        $this->cookies = $_COOKIE;
-        $this->files = $_FILES;
-    }
-    public function getURL(): string
-    {
-        return $this->server['REQUEST_URI'];
+        
     }
 
+    public function getUri(): string
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
+
+    public function parseUri(): array
+    {
+        $uri = $this->getUri(); // tasks/show?task_id=1
+        $questionSignPosition = strpos($uri, '?');
+        if ($questionSignPosition)
+        {
+            $uri = substr($uri, 0, $questionSignPosition);
+        }
+        
+        $uriParts = explode('/', $uri); 
+
+        return [
+            'controllerKey' => $uriParts[1], // tasks
+            'methodKey' => $uriParts[2], // show
+        ];
+    }
+
+    public function query(?string $key = null): mixed
+    {
+        if ($key === null) 
+        {
+            return $_GET;
+        }
+
+        return (array_key_exists( $key,$_GET[$key])) ? $_GET[$key] : null;
+    }
+
+    public function body(?string $key = null): mixed
+    {
+         if ($key === null) 
+        {
+            return $_POST;
+        }
+
+        return (array_key_exists( $key,$_POST[$key])) ? $_POST[$key] : null;
+    }
 }
