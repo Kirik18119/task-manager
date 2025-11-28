@@ -1,44 +1,41 @@
 <?php
 
 namespace App\Core;
+use App\Controllers\TaskController;
 class Router
 {
-
-    /** Сделать обрезку URL до предпоследнего '/'*
-     *  Route в формате ControllerName/methodName
-     *  Разделить route на Controller и Метод
-    */
-
-    public string $url;
-    public string $method;
-    public string $controller;
+    private $routes = [
+        'tasks' => TaskController::class
+    ];
+    public Application $app;
 
     public function __construct()
     {
-        $request = new Request();
-        $this->url = $request->getUrl();
-        $this->method= substr($this->url, strrpos($this->url, '/')-1); // http://localhost/task-manager/src/Controllers/users/create
-        $this->controller =
+       $app = new Application();
     }
 
     public function dispatch()
     {
-        $routes = [
-            'UserConrtroller' => [
-                '/createUser' => 'createUser',
-                '/updateUser' => 'updateUser',
-                '/deleteUser' => 'deleteUser',
-            ]
-        ];
-
-        foreach ($routes as $this->controller => $method) {
-            [$class, $function] = [$this->controller, $method];
-            $controllerInstance = new $class();
-            $controllerInstance->{$function}();
+        $requestParams = $this->app->request->parseUri();
+        $controllerKey = $requestParams['controllerKey'];
+        $controllerClassName = $this->routes[$controllerKey];
+        if ($controllerClassName === null)
+        {
+            $this->gotto404();
         }
+        $controller = new $controllerClassName();
+        $method = $requestParams['methodKey'];
+        if (!method_exists($controller, $method))
+        {
+            $this->goto404();
+        }
+        $controller->$method();
+    }
 
-
-
+    private function goto404()
+    {
+        echo 'Page not found';
+        exit;
     }
 
 
