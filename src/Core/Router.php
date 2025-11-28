@@ -2,39 +2,28 @@
 
 namespace App\Core;
 
-use App\Controller\TaskController;
 class Router
 {
-    private $routes = [
-        'tasks' => TaskController::class
-    ];
-
-    public function __construct(private readonly Application $app)
-    {
-        
-    }
+    public function __construct(private readonly Application $app) {}
 
     public function dispatch(): void
     {
         $requestParams = $this->app->request->parseUri();
+        $controllerClassName = "App\Controller\\".ucfirst(substr($requestParams['controllerKey'], 0, -1))."Controller";
 
-        $controllerKey = $requestParams['controllerKey'];
-        $controllerClassName = $this->routes[$controllerKey];
-
-        if ($controllerClassName === null) 
+        if (!class_exists($controllerClassName))
         {
             $this->redirectToNotFound();
         }
 
-        $controller = new $controllerClassName();
-        $method = $requestParams['methodKey'];
-
-        if (!method_exists($controllerClassName, $method))
+        if (!method_exists($controllerClassName, $requestParams['methodKey']))
         {
             $this->redirectToNotFound();
         }
 
-        $controller->$method();
+        $args = $this->app->serviceContainer->resolveControllerDependencies($controllerClassName, $requestParams['methodKey']);
+        $reflectionClass = new \ReflectionClass($controllerClassName);
+        call_user_func_array([$reflectionClass->newInstanceArgs($args['constructor']), $requestParams['methodKey']], $args['method'] ?? []);
     }
 
     private function redirectToNotFound(): void

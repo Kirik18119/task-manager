@@ -2,9 +2,16 @@
 
 namespace App\Controller;
 
-class TaskController
+use App\Core\Controller;
+
+class TaskController extends Controller
 {
-    public function create()
+    public function show(int $id): void
+    {
+        echo "Task $id is being shown";
+    }
+
+    public function create(): void
     {
         echo "It works!";
     }

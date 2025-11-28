@@ -4,12 +4,7 @@ namespace App\Core;
 
 class Request
 {
-    private const DOMAIN = 'http://localhost:8000/';
-
-    public function __construct()
-    {
-        
-    }
+    public function __construct() {}
 
     public function getUri(): string
     {
@@ -18,7 +13,7 @@ class Request
 
     public function parseUri(): array
     {
-        $uri = $this->getUri(); // tasks/show?task_id=1
+        $uri = $this->getUri();
         $questionSignPosition = strpos($uri, '?');
         if ($questionSignPosition)
         {
@@ -28,28 +23,38 @@ class Request
         $uriParts = explode('/', $uri); 
 
         return [
-            'controllerKey' => $uriParts[1], // tasks
-            'methodKey' => $uriParts[2], // show
+            'controllerKey' => $uriParts[1],
+            'methodKey' => $uriParts[2],
         ];
     }
 
     public function query(?string $key = null): mixed
     {
-        if ($key === null) 
+        if ($key == null)
         {
             return $_GET;
         }
 
-        return (array_key_exists( $key,$_GET[$key])) ? $_GET[$key] : null;
+        return $_GET[$key] ?? null;
     }
 
     public function body(?string $key = null): mixed
     {
-         if ($key === null) 
+         if ($key == null)
         {
             return $_POST;
         }
 
-        return (array_key_exists( $key,$_POST[$key])) ? $_POST[$key] : null;
+        return $_POST[$key] ?? null;
+    }
+
+    public function file(?string $key = null): mixed
+    {
+        if ($key == null)
+        {
+            return $_FILES['file'];
+        }
+
+        return $_FILES['file'][$key] ?? null;
     }
 }
