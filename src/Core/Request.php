@@ -32,13 +32,23 @@ class Request
     }
 
 
-    public function query(?string $key = null, $global ): mixed
+    public function query(?string $key = null): mixed
     {
-        if ($key === null)
-        {
-            return $global;
-        }
-        return (array_key_exists($key,$global[$key])) ? $global[$key] : null;
+        return $this->retrieveData($_GET, $key);
     }
 
+    public function body(?string $key = null): mixed
+    {
+        return $this->retrieveData($_POST, $key);
+    }
+
+    private function retrieveData(array $storage, ?string $key = null): mixed
+    {
+        if ($key == null)
+        {
+            return $storage;
+        }
+
+        return (array_key_exists($key, $storage)) ? $storate[$key] : null;
+    }
 }
