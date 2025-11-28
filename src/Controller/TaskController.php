@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\Controller;
+use App\DTO\CreateTaskDTO;
 
 class TaskController extends Controller
 {
@@ -11,8 +12,8 @@ class TaskController extends Controller
         echo "Task $id is being shown";
     }
 
-    public function create(): void
+    public function create(CreateTaskDTO $createTaskDTO): void
     {
-        echo "It works!";
+        var_dump($createTaskDTO);
     }
 }

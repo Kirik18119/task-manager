@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use App\Core\Attribute\MapInput;
+use App\Core\Enum\InputMapperType;
 use ReflectionClass;
 
 class ServiceContainer
@@ -37,6 +39,47 @@ class ServiceContainer
                 if ($param->getType()->isBuiltin())
                 {
                     $args ['method'] []= $this->instances[Request::class]->query($param->getName());
+                }
+                else if (is_subclass_of($param->getType()->getName(), Data::class))
+                {
+                    $dataReflectionClass = new ReflectionClass($param->getType()->getName());
+
+                    $attributes = $dataReflectionClass->getAttributes(MapInput::class);
+                    $requiresMapping = false;
+                    if (count($attributes) > 0)
+                    {
+                        $attribute = $attributes[0];
+                        $instance = $attribute->newInstance();
+                        $requiresMapping = true;
+                        if ($instance->mapperType == InputMapperType::SNAKE_CASE_MAPPER)
+                        {
+                            $mapperMethodName = 'mapToSnakeCase';
+                        }
+                        else
+                        {
+                            $mapperMethodName = 'mapToCamelCase';
+                        }
+                    }
+
+                    $constructorParams = $dataReflectionClass->getConstructor()->getParameters();
+                    $dtoArgs = [];
+
+                    foreach ($constructorParams as $constructorParam)
+                    {
+                        $fieldName = $constructorParam->getName();
+                        if ($requiresMapping)
+                        {
+                            $fieldName = $instance->$mapperMethodName($fieldName);
+                        }
+
+                        $dtoArgs []= $this->instances[Application::class]->request->body($fieldName);
+                    }
+
+                    $args['method'] []= $dataReflectionClass->newInstanceArgs($dtoArgs);
+                }
+                else if (is_subclass_of($param->getType()->getName(), Model::class))
+                {
+                    // fetch from database by id $args['method'] []= find($id)
                 }
             }
         }
