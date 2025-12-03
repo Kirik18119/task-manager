@@ -3,9 +3,17 @@
 
 require_once dirname(__DIR__).'/vendor/autoload.php';
 
-$admin = \App\Model\User::create([
-   'first_name' => 'admin',
-   'last_name' => 'admin',
-   'is_admin' => true,
-   'category' => null,
+$admin = \App\Model\User::findBy([
+    'email' => 'admin@admin.com',
 ]);
+
+if ($admin->count() == 0)
+{
+    \App\Model\User::create([
+        'first_name' => 'Admin',
+        'last_name' => 'Admin',
+        'is_admin' => true,
+        'email' => 'admin@admin.com',
+        'password' => \App\Core\Hash::make('password'),
+    ]);
+}

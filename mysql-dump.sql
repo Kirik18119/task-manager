@@ -3,6 +3,8 @@ CREATE TABLE users
     id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(40) NOT NULL,
     last_name VARCHAR(40) NOT NULL,
+    email VARCHAR(40) NOT NULL,
+    password VARCHAR(256) NOT NULL,
     is_admin BOOLEAN,
     category TINYINT(10) NOT NULL
 );

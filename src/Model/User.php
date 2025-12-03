@@ -9,6 +9,8 @@ use App\Enum\UserCategory;
  * @property int $id
  * @property string $first_name
  * @property string $last_name
+ * @property string $email
+ * @property string $password
  * @property boolean $is_admin
  * @property UserCategory|null $category
  */
