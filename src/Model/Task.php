@@ -2,7 +2,9 @@
 
 namespace App\Model;
 
-class Task
-{
+use App\Core\ORM\Model;
 
+class Task extends Model
+{
+    protected static string $table = 'tasks';
 }
