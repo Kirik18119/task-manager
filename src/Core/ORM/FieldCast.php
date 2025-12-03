@@ -29,4 +29,17 @@ class FieldCast
     {
         return $value->format('Y-m-d H:i:s');
     }
+
+    /**
+     * @param class-string $enumClassName
+     */
+    public static function enumCast(string $enumClassName, mixed $value): object
+    {
+        return $enumClassName::from($value);
+    }
+
+    public static function enumCastReverse(object $enumClassName): mixed
+    {
+        return $enumClassName->value;
+    }
 }

@@ -4,7 +4,9 @@ namespace App\Core;
 
 use App\Core\Attribute\MapInput;
 use App\Core\Enum\InputMapperType;
+use App\Core\ORM\FieldCast;
 use App\Core\ORM\Model;
+use DateTime;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
@@ -79,7 +81,17 @@ class ServiceContainer
                             $fieldName = $instance->$mapperMethodName($fieldName);
                         }
 
-                        $dtoArgs []= $this->instances[Application::class]->request->body($fieldName);
+                        $value = $this->instances[Application::class]->request->body($fieldName);
+                        if (enum_exists($constructorParam->getType()->getName()))
+                        {
+                            $value = FieldCast::enumCast($constructorParam->getType()->getName(), $value);
+                        }
+                        else if ($constructorParam->getType()->getName() == DateTime::class)
+                        {
+                            $value = new DateTime($value);
+                        }
+
+                        $dtoArgs []= $value;
                     }
 
                     $args['method'] []= $dataReflectionClass->newInstanceArgs($dtoArgs);

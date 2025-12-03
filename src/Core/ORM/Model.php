@@ -15,8 +15,39 @@ abstract class Model
      * available casts
      *  property_name => boolean
      *  property_name => datetime
+     *  property_name => SomeEnum::class
      */
     protected static array $casts = [];
+
+    private static function cast(string $field, mixed $value): mixed
+    {
+        if (enum_exists(static::$casts[$field]))
+        {
+            $value = FieldCast::enumCast(static::$casts[$field], $value);
+        }
+        else
+        {
+            $castName = static::$casts[$field] . 'Cast';
+            $value = FieldCast::{$castName}($value);
+        }
+
+        return $value;
+    }
+
+    private static function castReverse(string $field, mixed $value): mixed
+    {
+        if (enum_exists(static::$casts[$field]))
+        {
+            $value = FieldCast::enumCastReverse($value);
+        }
+        else
+        {
+            $castName = static::$casts[$field] . 'CastReverse';
+            $value = FieldCast::{$castName}($value);
+        }
+
+        return $value;
+    }
 
     public static function find(int $id): ?Model
     {
@@ -34,8 +65,7 @@ abstract class Model
         $model = new static();
         foreach ($rawData as $field => $value) {
             if (array_key_exists($field, static::$casts)) {
-                $castName = static::$casts[$field] . 'Cast';
-                $value = FieldCast::{$castName}($value);
+                $value = static::cast($field, $value);
             }
             $model->$field = $value;
         }
@@ -49,8 +79,7 @@ abstract class Model
         foreach ($values as $field => $value)
         {
             if (array_key_exists($field, static::$casts)) {
-                $castName = static::$casts[$field] . 'CastReverse';
-                $value = FieldCast::{$castName}($value);
+                $value = static::castReverse($field, $value);
             }
             $params[$field] = $value;
         }
@@ -81,8 +110,7 @@ abstract class Model
         foreach ($values as $field => $value)
         {
             if (array_key_exists($field, static::$casts)) {
-                $castName = static::$casts[$field] . 'CastReverse';
-                $value = FieldCast::{$castName}($value);
+                $value = static::castReverse($field, $value);
             }
             $params[$field] = $value;
         }
