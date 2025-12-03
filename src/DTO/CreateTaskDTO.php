@@ -2,6 +2,7 @@
 
 namespace App\DTO;
 
+use App\Model\User;
 use DateTime;
 use App\Core\Attribute\MapInput;
 use App\Core\Data;
@@ -15,8 +16,7 @@ readonly class CreateTaskDTO extends Data
         private string $taskName,
         private string $taskDescription,
         private TaskStatus $taskStatus,
+        private User $userId,
         private int $estimatedHours,
-        private DateTime $createdAt,
-        private DateTime $updatedAt,
     ) {}
 }

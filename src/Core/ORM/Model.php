@@ -2,7 +2,10 @@
 
 namespace App\Core\ORM;
 
+use App\Core\Collection\ArrayCollection;
+use App\Core\Collection\ICollection;
 use App\Core\Database;
+use Exception;
 use PDO;
 
 abstract class Model
@@ -49,19 +52,8 @@ abstract class Model
         return $value;
     }
 
-    public static function find(int $id): ?Model
+    private static function mapRawToModel(array $rawData): Model
     {
-        $connection = Database::getConnection();
-        $query = sprintf("SELECT * FROM %s WHERE %s = :id", self::$table, self::$primaryKey);
-        $stmt = $connection->prepare($query);
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        $rawData = $stmt->fetch();
-        if (!$rawData || count($rawData) == 0) {
-            return null;
-        }
-
         $model = new static();
         foreach ($rawData as $field => $value) {
             if (array_key_exists($field, static::$casts)) {
@@ -71,6 +63,68 @@ abstract class Model
         }
 
         return $model;
+    }
+
+    /**
+     * @throws Exception
+     */
+    private static function mapRawToCollection(array $rawData): ArrayCollection
+    {
+        return new ArrayCollection(array_map(fn ($raw) => static::mapRawToModel($raw), $rawData));
+    }
+
+    /**
+     * @param class-string<Model> $className
+     */
+    public function belongTo(string $className, string $foreignKeyName): ?Model
+    {
+        return $className::find($this->$foreignKeyName);
+    }
+
+    /**
+     * @param class-string<Model> $className
+     */
+    public function hasMany(string $className, string $localKeyName): ICollection
+    {
+        return $className::findBy([$localKeyName => $this->{static::$casts[$localKeyName]}]);
+    }
+
+    public function hasOne(string $className, string $localKeyName): ICollection
+    {
+        return $this->hasMany($className, $localKeyName);
+    }
+
+    public static function find(int $id): ?Model
+    {
+        $connection = Database::getConnection();
+        $query = sprintf("SELECT * FROM %s WHERE %s = :id", static::$table, static::$primaryKey);
+        $stmt = $connection->prepare($query);
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $rawData = $stmt->fetch();
+        if (!$rawData || count($rawData) == 0) {
+            return null;
+        }
+
+        return static::mapRawToModel($rawData);
+    }
+
+    public static function findBy(array $options): ICollection
+    {
+        $connection = Database::getConnection();
+        $query = sprintf(
+            "SELECT * FROM %s WHERE %s",
+            static::$table,
+            implode(' AND', array_map(fn ($field) => "$field=:$field", array_keys($options))));
+
+        $stmt = $connection->prepare($query);
+        $stmt->execute(array_combine(
+            array_map(fn ($key) => ":$key", array_keys($options)),
+            array_values($options)
+        ));
+
+        return static::mapRawToCollection($stmt->fetchAll());
     }
 
     public static function create(array $values = []): Model

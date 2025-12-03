@@ -86,6 +86,18 @@ class ServiceContainer
                         {
                             $value = FieldCast::enumCast($constructorParam->getType()->getName(), $value);
                         }
+                        else if (is_subclass_of($constructorParam->getType()->getName(), Model::class))
+                        {
+                            /**
+                             * @var class-string<Model> $modelClassName
+                             */
+                            $modelClassName = $constructorParam->getType()->getName();
+                            $value = $modelClassName::find($id = $value);
+                            if (!$value)
+                            {
+                                throw new Exception(sprintf('Model %s with id %s not found', $modelClassName, $id));
+                            }
+                        }
                         else if ($constructorParam->getType()->getName() == DateTime::class)
                         {
                             $value = new DateTime($value);

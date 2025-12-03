@@ -33,13 +33,13 @@ class FieldCast
     /**
      * @param class-string $enumClassName
      */
-    public static function enumCast(string $enumClassName, mixed $value): object
+    public static function enumCast(string $enumClassName, string|int|null $value): ?object
     {
-        return $enumClassName::from($value);
+        return $value ? $enumClassName::from($value) : null;
     }
 
-    public static function enumCastReverse(object $enumClassName): mixed
+    public static function enumCastReverse(?object $enumClassName): int|string|null
     {
-        return $enumClassName->value;
+        return $enumClassName ? $enumClassName->value : null;
     }
 }

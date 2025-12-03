@@ -12,6 +12,7 @@ use DateTime;
  * @property string $description
  * @property TaskStatus $status
  * @property int $estimated_hours
+ * @property int $user_id
  * @property DateTime $created_at
  * @property DateTime $updated_at
  */
