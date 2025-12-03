@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+require_once dirname(__DIR__).'/vendor/autoload.php';
+
+$admin = \App\Model\User::create([
+   'first_name' => 'admin',
+   'last_name' => 'admin',
+   'is_admin' => true,
+   'category' => null,
+]);
