@@ -18,7 +18,8 @@ CREATE TABLE tasks
     estimated_hours INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted_at DATETIME DEFAULT NULL
+    deleted_at DATETIME DEFAULT NULL,
+    user_id int DEFAULT NULL
 );
 
 CREATE TABLE task_progress

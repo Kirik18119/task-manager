@@ -12,7 +12,7 @@ use DateTime;
  * @property string $description
  * @property TaskStatus $status
  * @property int $estimated_hours
- * @property int $user_id
+ * @property int|null $user_id
  * @property DateTime $created_at
  * @property DateTime $updated_at
  */
@@ -25,4 +25,9 @@ class Task extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function user(): ?Model
+    {
+        return ($this->user_id) ? $this->belongTo(User::class, 'user_id') : null;
+    }
 }

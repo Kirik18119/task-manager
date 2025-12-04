@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Core\Collection\ICollection;
 use App\Core\ORM\Model;
 use App\Enum\UserCategory;
 
@@ -26,5 +27,10 @@ class User extends Model
     public function isAdmin(): bool
     {
         return $this->is_admin;
+    }
+
+    public function tasks(): ICollection
+    {
+        return $this->hasMany(Task::class, 'user_id');
     }
 }
