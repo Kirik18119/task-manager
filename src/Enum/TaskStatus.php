@@ -2,10 +2,13 @@
 
 namespace App\Enum;
 
+use App\Core\Enum\HasPresentation;
 use App\Core\Enum\IPresentable;
 
 enum TaskStatus: int implements IPresentable
 {
+    use HasPresentation;
+
     case TO_DO = 1;
     case IN_WORK = 2;
     case CODE_REVIEW = 3;

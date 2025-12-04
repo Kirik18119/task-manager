@@ -1,16 +1,15 @@
 <?php
 
-namespace App\DTO;
+namespace App\DTO\Task;
 
-use App\Model\User;
-use DateTime;
 use App\Core\Attribute\MapInput;
 use App\Core\Data;
 use App\Core\Enum\InputMapperType;
 use App\Enum\TaskStatus;
+use App\Model\User;
 
 #[MapInput(InputMapperType::SNAKE_CASE_MAPPER)]
-readonly class CreateTaskDTO extends Data
+readonly class UpdateTaskDTO extends Data
 {
     public function __construct(
         private string $taskName,

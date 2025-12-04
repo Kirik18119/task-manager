@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use App\Core\Attribute\Guard;
 use App\Core\Attribute\MapInput;
 use App\Core\Enum\InputMapperType;
 use App\Core\ORM\FieldCast;
@@ -42,6 +43,14 @@ class ServiceContainer
 
         if ($methodName)
         {
+            $guardAttributes = $reflection->getMethod($methodName)->getAttributes(Guard::class);
+
+            foreach ($guardAttributes as $attribute)
+            {
+                $guardClassName = $attribute->getArguments()[0];
+                (new $guardClassName())->handle();
+            }
+
             $methodParams = $reflection->getMethod($methodName)->getParameters();
             foreach ($methodParams as $param)
             {

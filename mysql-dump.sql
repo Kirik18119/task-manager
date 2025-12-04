@@ -28,8 +28,7 @@ CREATE TABLE task_progress
     user_id INT,
     name VARCHAR(40) NOT NULL,
     spent_hours INT,
-    FOREIGN KEY (task_id) REFERENCES tasks (id),
-    FOREIGN KEY (user_id) REFERENCES users (id)
+    FOREIGN KEY (task_id) REFERENCES tasks (id)
 );
 
 CREATE TABLE task_files
@@ -44,7 +43,7 @@ CREATE TABLE task_status_history
 (
     id INT AUTO_INCREMENT,
     task_id INT,
-    old_status TINYINT(10) NOT NULL ,
+    old_status TINYINT(10) NOT NULL,
     new_status TINYINT(10) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (task_id) REFERENCES tasks (id)
@@ -55,9 +54,7 @@ CREATE TABLE task_assigment_history
     task_id INT,
     old_user_id INT,
     new_user_id INT,
-    FOREIGN KEY (task_id) REFERENCES tasks (id),
-    FOREIGN KEY (old_user_id) REFERENCES users (id),
-    FOREIGN KEY (new_user_id) REFERENCES users (id)
+    FOREIGN KEY (task_id) REFERENCES tasks (id)
 );
 CREATE TABLE comments
 (

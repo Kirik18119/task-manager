@@ -54,4 +54,9 @@ class ArrayCollection implements ICollection
     {
         return count($this->items);
     }
+
+    public function toArray(): array
+    {
+        return $this->items;
+    }
 }

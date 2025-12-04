@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Core\Controller;
-use App\DTO\CreateTaskDTO;
-use App\DTO\UpdateTaskDTO;
+use App\DTO\Task\CreateTaskDTO;
+use App\DTO\Task\UpdateTaskDTO;
 use App\Model\Task;
 
 class TaskController extends Controller

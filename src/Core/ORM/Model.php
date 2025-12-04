@@ -110,6 +110,16 @@ abstract class Model
         return static::mapRawToModel($rawData);
     }
 
+    public static function findAll(): ICollection
+    {
+        $connection = Database::getConnection();
+        $query = sprintf("SELECT * FROM %s", static::$table);
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
+
+        return static::mapRawToCollection($stmt->fetchAll());
+    }
+
     public static function findBy(array $options): ICollection
     {
         $connection = Database::getConnection();

@@ -22,4 +22,9 @@ class User extends Model
         'is_admin' => 'boolean',
         'category' => UserCategory::class,
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
 }
