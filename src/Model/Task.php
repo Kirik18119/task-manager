@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Core\Collection\ICollection;
 use App\Core\ORM\Model;
 use App\Enum\TaskStatus;
 use DateTime;
@@ -35,5 +36,30 @@ class Task extends Model
     public function assigner(): ?Model
     {
         return $this->belongTo(User::class, 'assigner_id');
+    }
+
+    public function comments(): ICollection
+    {
+        return $this->hasMany(Comment::class, 'task_id');
+    }
+
+    public function files(): ICollection
+    {
+        return $this->hasMany(TaskFile::class, 'task_id');
+    }
+
+    public function statusHistory(): ICollection
+    {
+        return $this->hasMany(TaskStatusHistory::class, 'task_id');
+    }
+
+    public function assignmentHistory(): ICollection
+    {
+        return $this->hasMany(TaskAssignmentHistory::class, 'task_id');
+    }
+
+    public function progress(): ICollection
+    {
+        return $this->hasOne(TaskProgress::class, 'task_id');
     }
 }
