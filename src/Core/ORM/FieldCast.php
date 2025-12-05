@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\ORM;
+namespace Core\ORM;
 
 use DateTime;
 use Exception;

@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use App\Core\ORM\Model;
+use Core\ORM\Model;
+use Core\ORM\Relation\BelongTo;
 
 /**
  * @property int $id
@@ -15,22 +16,22 @@ class TaskAssignmentHistory extends Model
 {
     protected static string $table = 'task_assignment_history';
 
-    public function task(): ?Model
+    public function task(): BelongTo
     {
         return $this->belongTo(Task::class, 'task_id');
     }
 
-    public function assigner(): ?Model
+    public function assigner(): BelongTo
     {
         return $this->belongTo(User::class, 'assigner_id');
     }
 
-    public function oldUser(): ?Model
+    public function oldUser(): BelongTo
     {
         return $this->belongTo(User::class, 'old_user_id');
     }
 
-    public function newUser(): ?Model
+    public function newUser(): BelongTo
     {
         return $this->belongTo(User::class, 'new_user_id');
     }

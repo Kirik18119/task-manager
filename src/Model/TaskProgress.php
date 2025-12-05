@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use App\Core\ORM\Model;
+use Core\ORM\Model;
+use Core\ORM\Relation\BelongTo;
 
 /**
  * @property int $id
@@ -15,12 +16,12 @@ class TaskProgress extends Model
 {
     protected static string $table = 'task_progress';
 
-    public function updater(): ?Model
+    public function updater(): BelongTo
     {
         return $this->belongTo(User::class, 'updater_id');
     }
 
-    public function task(): ?Model
+    public function task(): BelongTo
     {
         return $this->belongTo(Task::class, 'task_id');
     }

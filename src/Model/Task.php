@@ -2,8 +2,9 @@
 
 namespace App\Model;
 
-use App\Core\Collection\ICollection;
-use App\Core\ORM\Model;
+use Core\ORM\Model;
+use Core\ORM\Relation\BelongTo;
+use Core\ORM\Relation\HasMany;
 use App\Enum\TaskStatus;
 use DateTime;
 
@@ -28,38 +29,38 @@ class Task extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function user(): ?Model
+    public function user(): ?BelongTo
     {
         return ($this->user_id) ? $this->belongTo(User::class, 'user_id') : null;
     }
 
-    public function assigner(): ?Model
+    public function assigner(): BelongTo
     {
         return $this->belongTo(User::class, 'assigner_id');
     }
 
-    public function comments(): ICollection
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'task_id');
     }
 
-    public function files(): ICollection
+    public function files(): HasMany
     {
         return $this->hasMany(TaskFile::class, 'task_id');
     }
 
-    public function statusHistory(): ICollection
+    public function statusHistory(): HasMany
     {
         return $this->hasMany(TaskStatusHistory::class, 'task_id');
     }
 
-    public function assignmentHistory(): ICollection
+    public function assignmentHistory(): HasMany
     {
         return $this->hasMany(TaskAssignmentHistory::class, 'task_id');
     }
 
-    public function progress(): ICollection
+    public function progress(): HasMany
     {
-        return $this->hasOne(TaskProgress::class, 'task_id');
+        return $this->hasMany(TaskProgress::class, 'task_id');
     }
 }

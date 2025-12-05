@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Core;
+namespace Core;
 
-use App\Core\Attribute\Guard;
-use App\Core\Attribute\MapInput;
-use App\Core\Enum\InputMapperType;
-use App\Core\ORM\FieldCast;
-use App\Core\ORM\Model;
+use Core\Attribute\Guard;
+use Core\Attribute\MapInput;
+use Core\Enum\InputMapperType;
+use Core\ORM\FieldCast;
+use Core\ORM\Model;
 use DateTime;
 use Exception;
 use ReflectionClass;

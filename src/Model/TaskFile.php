@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use App\Core\ORM\Model;
+use Core\ORM\Model;
+use Core\ORM\Relation\BelongTo;
 
 /**
  * @property int $id
@@ -13,7 +14,7 @@ class TaskFile extends Model
 {
     protected static string $table = 'task_files';
 
-    public function task(): ?Model
+    public function task(): BelongTo
     {
         return $this->belongTo(Task::class, 'task_id');
     }

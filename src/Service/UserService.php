@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
-use App\Core\Auth;
-use App\Core\Hash;
-use App\Core\SessionManager;
+use Core\Auth;
+use Core\Hash;
+use Core\SessionManager;
 use App\DTO\User\CreateUserDTO;
 use App\DTO\User\UpdateUserCategoryDTO;
 use App\Enum\UserCategory;

@@ -2,7 +2,7 @@
 
 namespace App\Guard;
 
-use App\Core\Auth;
+use Core\Auth;
 use Exception;
 
 class Admin

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Attribute;
+namespace Core\Attribute;
 
-use App\Core\Enum\InputMapperType;
+use Core\Enum\InputMapperType;
 use Attribute;
 
 #[Attribute]

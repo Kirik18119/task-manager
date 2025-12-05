@@ -2,8 +2,8 @@
 
 namespace App\Model;
 
-use App\Core\Collection\ICollection;
-use App\Core\ORM\Model;
+use Core\ORM\Model;
+use Core\ORM\Relation\HasMany;
 use App\Enum\UserCategory;
 
 /**
@@ -29,7 +29,7 @@ class User extends Model
         return $this->is_admin;
     }
 
-    public function tasks(): ICollection
+    public function tasks(): HasMany
     {
         return $this->hasMany(Task::class, 'user_id');
     }

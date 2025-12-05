@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Collection;
+namespace Core\Collection;
 
 use Exception;
 

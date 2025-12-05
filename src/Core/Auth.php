@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core;
+namespace Core;
 
 use App\Model\User;
-use App\Core\ORM\Model;
+use Core\ORM\Model;
 
 class Auth
 {
@@ -15,6 +15,6 @@ class Auth
     {
         $userId = SessionManager::get('user_id');
 
-        return ($userId) ? (static::$authorizedUser ?? static::$authorizedUser = User::find($userId)) : null;
+        return ($userId) ? (static::$authorizedUser ?? static::$authorizedUser = static::$userModelClassName::find($userId)) : null;
     }
 }

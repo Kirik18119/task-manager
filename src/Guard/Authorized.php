@@ -2,7 +2,7 @@
 
 namespace App\Guard;
 
-use App\Core\SessionManager;
+use Core\SessionManager;
 use App\Model\User;
 use Exception;
 

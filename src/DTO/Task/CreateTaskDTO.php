@@ -2,9 +2,9 @@
 
 namespace App\DTO\Task;
 
-use App\Core\Attribute\MapInput;
-use App\Core\Data;
-use App\Core\Enum\InputMapperType;
+use Core\Attribute\MapInput;
+use Core\Data;
+use Core\Enum\InputMapperType;
 use App\Enum\TaskStatus;
 use App\Model\User;
 

@@ -2,6 +2,7 @@
     "name": "kirik/task-manager",
     "autoload": {
         "psr-4": {
+            "Core\\": "src/Core/",
             "App\\": "src/"
         },
         "files": [

@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use App\Core\ORM\Model;
+use Core\ORM\Model;
+use Core\ORM\Relation\BelongTo;
 use App\Enum\TaskStatus;
 use DateTime;
 
@@ -24,12 +25,12 @@ class TaskStatusHistory extends Model
         'created_at' => 'datetime',
     ];
 
-    public function updater(): ?Model
+    public function updater(): BelongTo
     {
         return $this->belongTo(User::class, 'updater_id');
     }
 
-    public function task(): ?Model
+    public function task(): BelongTo
     {
         return $this->belongTo(Task::class, 'task_id');
     }

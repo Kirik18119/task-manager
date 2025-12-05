@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use App\Core\ORM\Model;
+use Core\ORM\Model;
+use Core\ORM\Relation\BelongTo;
 
 /**
  * @property int $id
@@ -14,12 +15,12 @@ class Comment extends Model
 {
     protected static string $table = 'comments';
 
-    public function task(): ?Model
+    public function task(): BelongTo
     {
         return $this->belongTo(Task::class, 'task_id');
     }
 
-    public function commentator(): ?Model
+    public function commentator(): BelongTo
     {
         return $this->belongTo(User::class, 'commentator_id');
     }

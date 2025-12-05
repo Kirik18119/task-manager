@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Core\Attribute\Guard;
-use App\Core\Controller;
-use App\Core\Request;
+use Core\Attribute\Guard;
+use Core\Controller;
+use Core\Request;
 use App\DTO\User\CreateUserDTO;
 use App\DTO\User\UpdateUserCategoryDTO;
 use App\Guard\Admin;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace Core;
 
 use PDO;
 
@@ -8,15 +8,15 @@ class Database
 {
     private static ?PDO $connection;
 
-    private const HOST = 'localhost';
+    private const string HOST = 'localhost';
 
-    private const DB_NAME = 'task_manager';
+    private const string DB_NAME = 'task_manager';
 
-    private const DB_USERNAME = 'root';
+    private const string DB_USERNAME = 'root';
 
-    private const DB_PASSWORD = 'password';
+    private const string DB_PASSWORD = 'password';
 
-    private const DSN = "mysql:host=localhost;dbname=task_manager;charset=utf8mb4";
+    private const string DSN = "mysql:host=localhost;dbname=task_manager;charset=utf8mb4";
 
     public static function getConnection(): ?PDO
     {

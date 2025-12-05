@@ -2,8 +2,8 @@
 
 namespace App\Enum;
 
-use App\Core\Enum\HasPresentation;
-use App\Core\Enum\IPresentable;
+use Core\Enum\HasPresentation;
+use Core\Enum\IPresentable;
 
 enum UserCategory: int implements IPresentable
 {

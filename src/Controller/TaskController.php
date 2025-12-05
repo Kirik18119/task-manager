@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Core\Controller;
+use Core\Controller;
 use App\DTO\Task\CreateTaskDTO;
 use App\DTO\Task\UpdateTaskDTO;
 use App\Model\Task;
