@@ -13,6 +13,7 @@ use DateTime;
  * @property TaskStatus $status
  * @property int $estimated_hours
  * @property int|null $user_id
+ * @property int $assigner_id
  * @property DateTime $created_at
  * @property DateTime $updated_at
  */
@@ -29,5 +30,10 @@ class Task extends Model
     public function user(): ?Model
     {
         return ($this->user_id) ? $this->belongTo(User::class, 'user_id') : null;
+    }
+
+    public function assigner(): ?Model
+    {
+        return $this->belongTo(User::class, 'assigner_id');
     }
 }

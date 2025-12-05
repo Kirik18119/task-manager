@@ -19,17 +19,20 @@ CREATE TABLE tasks
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at DATETIME DEFAULT NULL,
-    user_id int DEFAULT NULL
+    user_id int DEFAULT NULL,
+    assigner_id int,
+    FOREIGN KEY (assigner_id) REFERENCES users(id)
 );
 
 CREATE TABLE task_progress
 (
     id INT AUTO_INCREMENT,
     task_id INT,
-    user_id INT,
+    updater_id INT,
     name VARCHAR(40) NOT NULL,
     spent_hours INT,
-    FOREIGN KEY (task_id) REFERENCES tasks (id)
+    FOREIGN KEY (task_id) REFERENCES tasks (id),
+    FOREIGN KEY (updater_id) REFERENCES users(id)
 );
 
 CREATE TABLE task_files
@@ -44,23 +47,29 @@ CREATE TABLE task_status_history
 (
     id INT AUTO_INCREMENT,
     task_id INT,
+    updater_id INT,
     old_status TINYINT(10) NOT NULL,
     new_status TINYINT(10) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (task_id) REFERENCES tasks (id)
+    FOREIGN KEY (task_id) REFERENCES tasks (id),
+    FOREIGN KEY (updater_id) REFERENCES users (id)
 );
-CREATE TABLE task_assigment_history
+CREATE TABLE task_assignment_history
 (
     id INT AUTO_INCREMENT,
     task_id INT,
+    assigner_id INT,
     old_user_id INT,
     new_user_id INT,
-    FOREIGN KEY (task_id) REFERENCES tasks (id)
+    FOREIGN KEY (task_id) REFERENCES tasks (id),
+    FOREIGN KEY (assigner_id) REFERENCES users(id)
 );
 CREATE TABLE comments
 (
     id INT AUTO_INCREMENT,
     task_id INT,
+    commentator_id INT,
     text TEXT NOT NULL,
-    FOREIGN KEY (task_id) REFERENCES tasks (id)
+    FOREIGN KEY (task_id) REFERENCES tasks (id),
+    FOREIGN KEY (commentator_id) REFERENCES users (id)
 );
