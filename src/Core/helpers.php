@@ -1,6 +1,7 @@
 <?php
 
 use Core\Application;
+use Core\Request;
 
 if (!function_exists('app')) {
     function app(): ?Application {
@@ -11,6 +12,12 @@ if (!function_exists('app')) {
 if (!function_exists('app_url')) {
     function app_url(): string {
         return 'http://localhost:8000';
+    }
+}
+
+if (!function_exists('request')) {
+    function request(): ?Request {
+        return Application::getInstance()->request;
     }
 }
 

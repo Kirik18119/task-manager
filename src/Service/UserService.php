@@ -57,14 +57,14 @@ class UserService
     {
         if (!$user_id)
         {
-            throw new Exception('Field user_id is not defined');
+            throw new Exception('Field user_id is not defined', 400);
         }
 
         $user = User::find($user_id);
 
         if (!$user)
         {
-            throw new Exception('User does not exist');
+            throw new Exception('User does not exist', 404);
         }
 
         SessionManager::set('user_id', $user_id);
@@ -83,7 +83,7 @@ class UserService
         $user = User::find($updateUserCategoryDto->getUserId());
         if (!$user)
         {
-            throw new Exception('User does not exist');
+            throw new Exception('User does not exist', 404);
         }
 
         $user->update(['category' => $updateUserCategoryDto->getUserCategory()]);
@@ -97,7 +97,7 @@ class UserService
         $user = User::find($id);
         if (!$user)
         {
-            throw new Exception('User does not exist');
+            throw new Exception('User does not exist', 404);
         }
 
         $user->delete();

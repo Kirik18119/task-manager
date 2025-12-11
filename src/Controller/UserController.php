@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use Core\Attribute\Guard;
-use Core\Controller;
+use App\Resource\UserResource;
 use Core\Request;
 use App\DTO\User\CreateUserDTO;
 use App\DTO\User\UpdateUserCategoryDTO;
@@ -11,14 +10,15 @@ use App\Guard\Admin;
 use App\Guard\Authorized;
 use App\Model\User;
 use App\Service\UserService;
+use Core\Attribute\Guard;
+use Core\Controller;
 
 class UserController extends Controller
 {
     #[Guard(Admin::class)]
     public function list(): string
     {
-        $users = User::findAll();
-        return view('users.list', ['users' => $users->toArray()]);
+        return view('users.list', ['users' => UserResource::collection(User::findAll())]);
     }
 
     public function login(Request $request, UserService $userService): void

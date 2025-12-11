@@ -2,30 +2,30 @@
 
 namespace App\Controller;
 
-use Core\Controller;
 use App\DTO\Task\CreateTaskDTO;
-use App\DTO\Task\UpdateTaskDTO;
+use App\Guard\Admin;
 use App\Model\Task;
+use App\Resource\TaskResource;
+use App\Service\TaskService;
+use Core\Attribute\Guard;
+use Core\Controller;
 
 class TaskController extends Controller
 {
-    public function show(Task $task): void
+    public function list()
     {
-        var_dump($task);
+
     }
 
-    public function create(CreateTaskDTO $createTaskDTO): void
+    public function show(Task $task): string
     {
-        Task::create($createTaskDTO->toArray());
+        return view('tasks.show', ['task' => (new TaskResource($task))->toArray()]);
     }
 
-    public function update(Task $task, UpdateTaskDTO $updateTaskDTO): void
+    #[Guard(Admin::class)]
+    public function create(CreateTaskDTO $createTaskDTO, TaskService $taskService): void
     {
-        $task->update($updateTaskDTO->toArray());
-    }
-
-    public function delete(Task $task): void
-    {
-        $task->delete();
+        $taskService->create($createTaskDTO);
+        $this->redirect('tasks.list');
     }
 }

@@ -11,13 +11,14 @@ use DateTime;
 /**
  * @property int $id
  * @property string $name
- * @property string $description
+ * @property string|null $description
  * @property TaskStatus $status
- * @property int $estimated_hours
+ * @property int|null $estimated_hours
  * @property int|null $user_id
  * @property int $assigner_id
  * @property DateTime $created_at
  * @property DateTime $updated_at
+ * @property DateTime|null $deleted_at
  */
 class Task extends Model
 {
@@ -27,6 +28,7 @@ class Task extends Model
         'status' => TaskStatus::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     public function user(): ?BelongTo

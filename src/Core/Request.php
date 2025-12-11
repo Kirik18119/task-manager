@@ -48,6 +48,19 @@ class Request
         return $_POST[$key] ?? null;
     }
 
+    public function input(?string $key = null): mixed
+    {
+        if ($key == null)
+        {
+            return [
+                'query' => $_GET,
+                'body' => $_POST,
+            ];
+        }
+
+        return $this->query($key) ?? ($this->body($key));
+    }
+
     public function file(?string $key = null): mixed
     {
         if ($key == null)

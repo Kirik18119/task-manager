@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use App\Core\Request;
 use Core\Attribute\Guard;
 use Core\Attribute\MapInput;
 use Core\Enum\InputMapperType;
@@ -90,7 +91,7 @@ class ServiceContainer
                             $fieldName = $instance->$mapperMethodName($fieldName);
                         }
 
-                        $value = $this->instances[Application::class]->request->body($fieldName);
+                        $value = $this->instances[Application::class]->request->input($fieldName);
                         if (enum_exists($constructorParam->getType()->getName()))
                         {
                             $value = FieldCast::enumCast($constructorParam->getType()->getName(), $value);
@@ -102,7 +103,7 @@ class ServiceContainer
                              */
                             $modelClassName = $constructorParam->getType()->getName();
                             $value = $modelClassName::find($id = $value);
-                            if (!$value)
+                            if (!$value && !$constructorParam->getType()->allowsNull())
                             {
                                 throw new Exception(sprintf('Model %s with id %s not found', $modelClassName, $id));
                             }

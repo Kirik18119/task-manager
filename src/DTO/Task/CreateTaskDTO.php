@@ -13,9 +13,9 @@ readonly class CreateTaskDTO extends Data
 {
     public function __construct(
         private string $taskName,
-        private string $taskDescription,
+        private ?string $taskDescription,
         private TaskStatus $taskStatus,
-        private User $userId,
         private int $estimatedHours,
+        private ?User $user,
     ) {}
 }
