@@ -7,7 +7,10 @@ if ($argv[1] == 'run') {
     exec('php console/admin_generator');
     exec('php -S localhost:8000 index.php');
 } else if ($argv[1] == 'test') {
-    exec('./vendor/bin/phpunit');
+    exec('./vendor/bin/phpunit', $output);
+    foreach ($output as $line) {
+        echo $line.PHP_EOL;
+    }
 } else {
     echo "Command is not supported".PHP_EOL;
     exit;
