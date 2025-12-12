@@ -30,7 +30,7 @@ trait HasWrites
 
         foreach ($params as $field => $value)
         {
-            $stmt->bindParam(":$field", $value);
+            $stmt->bindValue(":$field", $value);
         }
 
         $stmt->execute();

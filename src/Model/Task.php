@@ -22,9 +22,9 @@ use DateTime;
  */
 class Task extends Model
 {
-    protected static string $table = 'tasks';
+    public static string $table = 'tasks';
 
-    protected static array $casts = [
+    public static array $casts = [
         'status' => TaskStatus::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',

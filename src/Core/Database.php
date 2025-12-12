@@ -26,6 +26,10 @@ class Database
             PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
+        if (app()->environment == 'test') {
+            return self::$connection ?? self::$connection = new PDO("sqlite::memory:", null, null, $options);
+        }
+
         return self::$connection ?? self::$connection = new PDO(self::DSN, self::DB_USERNAME, self::DB_PASSWORD, $options);
     }
 }

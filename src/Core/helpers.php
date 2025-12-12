@@ -1,5 +1,6 @@
 <?php
 
+use App\Core\Faker;
 use Core\Application;
 use Core\Request;
 
@@ -39,5 +40,11 @@ if (!function_exists('view')) {
                 str_replace('.', '/', $view) . '.html.twig',
                 $params
             );
+    }
+}
+
+if (!function_exists('faker')) {
+    function faker(): Faker {
+        return Faker::getInstance();
     }
 }

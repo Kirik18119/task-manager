@@ -2,7 +2,7 @@
 
 require_once './vendor/autoload.php';
 
-use App\Core\Application;
+use Core\Application;
 
 $app = new Application();
 $app->run();

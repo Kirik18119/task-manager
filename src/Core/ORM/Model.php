@@ -24,7 +24,7 @@ abstract class Model
      *  property_name => datetime
      *  property_name => SomeEnum::class
      */
-    protected static array $casts = [];
+    public static array $casts = [];
 
     public static function query(array $columns = ['*']): QueryBuilder
     {

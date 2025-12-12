@@ -20,14 +20,14 @@ class FieldCast
     /**
      * @throws Exception
      */
-    public static function datetimeCast(string $value): DateTime
+    public static function datetimeCast(?string $value): ?DateTime
     {
-        return new DateTime($value);
+        return $value ? new DateTime($value) : null;
     }
 
-    public static function datetimeCastReverse(DateTime $value): string
+    public static function datetimeCastReverse(?DateTime $value): ?string
     {
-        return $value->format('Y-m-d H:i:s');
+        return $value?->format('Y-m-d H:i:s');
     }
 
     /**

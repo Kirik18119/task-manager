@@ -13,7 +13,7 @@ use Core\ORM\Relation\BelongTo;
  */
 class Comment extends Model
 {
-    protected static string $table = 'comments';
+    public static string $table = 'comments';
 
     public function task(): BelongTo
     {

@@ -6,7 +6,7 @@ use Twig\Loader\FilesystemLoader;
 
 Class Application
 {
-    private static ?Application $instance;
+    private static ?Application $instance = null;
     private Router $router;
     public Request $request;
 
@@ -14,7 +14,7 @@ Class Application
 
     public Environment $twig;
 
-    public function __construct()
+    public function __construct(public readonly string $environment = 'prod')
     {
         static::$instance = $this;
         $this->serviceContainer = new ServiceContainer();
@@ -26,7 +26,7 @@ Class Application
 
     public static function getInstance(): ?Application
     {
-        return self::$instance;
+        return self::$instance ?? self::$instance = new Application('test');
     }
 
    public function run(): void

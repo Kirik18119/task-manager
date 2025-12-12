@@ -17,9 +17,9 @@ use App\Enum\UserCategory;
  */
 class User extends Model
 {
-    protected static string $table = 'users';
+    public static string $table = 'users';
 
-    protected static array $casts = [
+    public static array $casts = [
         'is_admin' => 'boolean',
         'category' => UserCategory::class,
     ];

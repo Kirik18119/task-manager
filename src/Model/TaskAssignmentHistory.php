@@ -14,7 +14,7 @@ use Core\ORM\Relation\BelongTo;
  */
 class TaskAssignmentHistory extends Model
 {
-    protected static string $table = 'task_assignment_history';
+    public static string $table = 'task_assignment_history';
 
     public function task(): BelongTo
     {

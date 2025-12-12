@@ -12,7 +12,7 @@ use Core\ORM\Relation\BelongTo;
  */
 class TaskFile extends Model
 {
-    protected static string $table = 'task_files';
+    public static string $table = 'task_files';
 
     public function task(): BelongTo
     {

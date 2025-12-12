@@ -6,6 +6,8 @@ if ($argv[1] == 'run') {
     exec('composer dump-autoload');
     exec('php console/admin_generator');
     exec('php -S localhost:8000 index.php');
+} else if ($argv[1] == 'test') {
+    exec('./vendor/bin/phpunit');
 } else {
     echo "Command is not supported".PHP_EOL;
     exit;

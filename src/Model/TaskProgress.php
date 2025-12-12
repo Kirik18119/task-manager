@@ -14,7 +14,7 @@ use Core\ORM\Relation\BelongTo;
  */
 class TaskProgress extends Model
 {
-    protected static string $table = 'task_progress';
+    public static string $table = 'task_progress';
 
     public function updater(): BelongTo
     {

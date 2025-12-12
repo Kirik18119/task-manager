@@ -17,9 +17,9 @@ use DateTime;
  */
 class TaskStatusHistory extends Model
 {
-    protected static string $table = 'task_status_history';
+    public static string $table = 'task_status_history';
 
-    protected static array $casts = [
+    public static array $casts = [
         'old_status' => TaskStatus::class,
         'new_status' => TaskStatus::class,
         'created_at' => 'datetime',
