@@ -2,11 +2,11 @@
 
 namespace App\DTO\Task;
 
-use Core\Attribute\MapInput;
-use Core\Data;
-use Core\Enum\InputMapperType;
+use Core\Http\Data;
 use App\Enum\TaskStatus;
 use App\Model\User;
+use Core\Attribute\MapInput;
+use Core\Enum\InputMapperType;
 
 #[MapInput(InputMapperType::SNAKE_CASE_MAPPER)]
 readonly class CreateTaskDTO extends Data

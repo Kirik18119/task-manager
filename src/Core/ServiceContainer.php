@@ -2,7 +2,8 @@
 
 namespace Core;
 
-use App\Core\Request;
+use Core\Http\Data;
+use Core\Http\Request;
 use Core\Attribute\Guard;
 use Core\Attribute\MapInput;
 use Core\Enum\InputMapperType;

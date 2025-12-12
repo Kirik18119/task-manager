@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Core\ORM;
-
-use Core\ORM\Model;
+namespace Core\ORM;
 
 abstract class AbstractFactory
 {

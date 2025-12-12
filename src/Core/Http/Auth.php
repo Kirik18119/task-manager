@@ -1,7 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Http;
 
+use Core\Utils\SessionManager;
 use App\Model\User;
 use Core\ORM\Model;
 

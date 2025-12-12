@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core;
+namespace Core\Utils;
 
 use Random\RandomException;
 

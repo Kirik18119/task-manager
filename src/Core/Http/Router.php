@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Http;
+
+use Core\Application;
 
 class Router
 {
@@ -27,13 +29,17 @@ class Router
             $this->redirectToNotFound();
         }
 
-        $args = $this->app->serviceContainer->resolveControllerDependencies($controllerClassName, $methodName);
-        $reflectionClass = new \ReflectionClass($controllerClassName);
-        $result = call_user_func_array([$reflectionClass->newInstanceArgs($args['constructor']), $methodName], $args['method'] ?? []);
+        try {
+            $args = $this->app->serviceContainer->resolveControllerDependencies($controllerClassName, $methodName);
+            $reflectionClass = new \ReflectionClass($controllerClassName);
 
-        if (gettype($result) == 'string')
-        {
-            echo $result;
+            $result = call_user_func_array([$reflectionClass->newInstanceArgs($args['constructor']), $methodName], $args['method'] ?? []);
+            if (gettype($result) == 'string')
+            {
+                echo $result;
+            }
+        } catch (\Exception $exception) {
+            echo $exception->getCode() . "." . $exception->getMessage();
         }
     }
 

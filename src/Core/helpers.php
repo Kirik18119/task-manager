@@ -1,8 +1,8 @@
 <?php
 
-use App\Core\Faker;
+use Core\Http\Request;
+use Core\Utils\Faker;
 use Core\Application;
-use Core\Request;
 
 if (!function_exists('app')) {
     function app(): ?Application {

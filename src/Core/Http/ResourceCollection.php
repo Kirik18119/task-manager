@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Core;
+namespace Core\Http;
 
 use Core\Collection\ICollection;
-use Core\Resource;
 
 class ResourceCollection
 {

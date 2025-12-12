@@ -2,7 +2,7 @@
 
 namespace App\DTO\User;
 
-use Core\Data;
+use Core\Http\Data;
 use App\Enum\UserCategory;
 
 readonly class UpdateUserCategoryDTO extends Data

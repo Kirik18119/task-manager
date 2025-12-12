@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
+use Core\Http\Auth;
 use App\DTO\Task\CreateTaskDTO;
 use App\Model\Task;
-use Core\Auth;
 
 class TaskService
 {

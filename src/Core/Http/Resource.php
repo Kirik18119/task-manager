@@ -1,8 +1,7 @@
 <?php
 
-namespace Core;
+namespace Core\Http;
 
-use App\Core\ResourceCollection;
 use Core\Collection\ICollection;
 use Core\ORM\Model;
 

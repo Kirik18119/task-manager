@@ -2,8 +2,8 @@
 
 namespace App\Resource;
 
+use Core\Http\Resource;
 use App\Model\User;
-use Core\Resource;
 
 class UserResource extends Resource
 {

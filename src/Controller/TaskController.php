@@ -2,13 +2,13 @@
 
 namespace App\Controller;
 
+use Core\Http\Controller;
 use App\DTO\Task\CreateTaskDTO;
 use App\Guard\Admin;
 use App\Model\Task;
 use App\Resource\TaskResource;
 use App\Service\TaskService;
 use Core\Attribute\Guard;
-use Core\Controller;
 
 class TaskController extends Controller
 {

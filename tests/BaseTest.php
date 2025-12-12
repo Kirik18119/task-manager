@@ -4,6 +4,7 @@ namespace Tests;
 
 use Core\Application;
 use Core\Database;
+use Core\Http\HttpClient;
 use PDO;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +19,16 @@ class BaseTest extends TestCase
 
         $schemaSql = file_get_contents(dirname(__DIR__) . '/sqlite-script.sql');
         $pdo->exec($schemaSql);
+    }
+
+    protected function get(string $url, array $query = []): string
+    {
+        return HttpClient::get($url, $query);
+    }
+
+    protected function post(string $url, array $body = []): string
+    {
+        return HttpClient::post($url, $body);
     }
 
     protected function assertDatabaseNotEmpty(string $table): void

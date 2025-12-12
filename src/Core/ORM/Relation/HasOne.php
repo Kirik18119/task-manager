@@ -5,7 +5,7 @@ namespace Core\ORM\Relation;
 use Core\Collection\ICollection;
 use Core\ORM\Model;
 
-class HasOne
+readonly class HasOne
 {
     /**
      * @param Model $parentClassObject
@@ -13,9 +13,9 @@ class HasOne
      * @param string $localKeyName
      */
     public function __construct(
-        public readonly Model $parentClassObject,
-        public readonly string $childClassName,
-        public readonly string $localKeyName
+        public Model  $parentClassObject,
+        public string $childClassName,
+        public string $localKeyName
     ) {}
 
     public function get(): ICollection

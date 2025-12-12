@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
-use Core\Auth;
-use Core\Hash;
-use Core\SessionManager;
+use App\DTO\User\UserLoginDTO;
+use Core\Http\Auth;
+use Core\Utils\Hash;
+use Core\Utils\SessionManager;
 use App\DTO\User\CreateUserDTO;
 use App\DTO\User\UpdateUserCategoryDTO;
 use App\Enum\UserCategory;
@@ -53,21 +54,21 @@ class UserService
     /**
      * @throws Exception
      */
-    public function loginUser(?int $user_id): void
+    public function loginUser(UserLoginDTO $userLoginDTO): void
     {
-        if (!$user_id)
-        {
-            throw new Exception('Field user_id is not defined', 400);
-        }
-
-        $user = User::find($user_id);
+        /** @var ?User $user */
+        $user = User::findBy(['email' => $userLoginDTO->getEmail()])?->first();
 
         if (!$user)
         {
-            throw new Exception('User does not exist', 404);
+            throw new Exception('User with such email does not exist', 400);
         }
 
-        SessionManager::set('user_id', $user_id);
+        if (!Hash::verify($userLoginDTO->getPassword(), $user->password)) {
+            throw new Exception('Wrong password', 400);
+        }
+
+        SessionManager::set('user_id', $user->id);
     }
 
     public function logoutUser(): void

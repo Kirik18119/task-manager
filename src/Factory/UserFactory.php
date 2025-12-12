@@ -2,10 +2,10 @@
 
 namespace App\Factory;
 
-use App\Core\ORM\AbstractFactory;
+use Core\ORM\AbstractFactory;
+use Core\Utils\Hash;
 use App\Enum\UserCategory;
 use App\Model\User;
-use Core\Hash;
 use Random\RandomException;
 
 class UserFactory extends AbstractFactory

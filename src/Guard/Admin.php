@@ -2,7 +2,7 @@
 
 namespace App\Guard;
 
-use Core\Auth;
+use Core\Http\Auth;
 use Exception;
 
 class Admin
@@ -16,7 +16,7 @@ class Admin
         $user = Auth::user();
         if (!$user->isAdmin())
         {
-            throw new Exception('Forbidden action');
+            throw new Exception('Forbidden action', 403);
         }
     }
 }

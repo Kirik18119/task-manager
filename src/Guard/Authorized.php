@@ -2,7 +2,7 @@
 
 namespace App\Guard;
 
-use Core\SessionManager;
+use Core\Utils\SessionManager;
 use App\Model\User;
 use Exception;
 
@@ -16,13 +16,13 @@ class Authorized
         $userId = SessionManager::get('user_id');
         if (!$userId)
         {
-            throw new Exception('Unauthorized action');
+            throw new Exception('Unauthorized action', 401);
         }
 
         $user = User::find($userId);
         if (!$user)
         {
-            throw new Exception('Unauthorized action');
+            throw new Exception('Unauthorized action', 401);
         }
     }
 }

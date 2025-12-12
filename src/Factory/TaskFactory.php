@@ -2,7 +2,7 @@
 
 namespace App\Factory;
 
-use App\Core\ORM\AbstractFactory;
+use Core\ORM\AbstractFactory;
 use App\Enum\TaskStatus;
 use App\Model\Task;
 use DateTime;

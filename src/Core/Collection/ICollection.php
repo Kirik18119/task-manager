@@ -18,4 +18,9 @@ interface ICollection
     public function get(int $index): mixed;
 
     public function count(): int;
+
+    /**
+     * @return T|null
+     */
+    public function first(): mixed;
 }

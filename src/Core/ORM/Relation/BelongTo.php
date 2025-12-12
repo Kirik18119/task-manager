@@ -4,7 +4,7 @@ namespace Core\ORM\Relation;
 
 use Core\ORM\Model;
 
-class BelongTo
+readonly class BelongTo
 {
     /**
      * @param class-string<Model> $parentClassName
@@ -12,9 +12,9 @@ class BelongTo
      * @param string $foreignKeyName
      */
     public function __construct(
-        public readonly string $parentClassName,
-        public readonly Model $childClassObject,
-        public readonly string $foreignKeyName
+        public string $parentClassName,
+        public Model  $childClassObject,
+        public string $foreignKeyName
     ) {}
 
     public function get(): ?Model

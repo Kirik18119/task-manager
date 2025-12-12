@@ -1,6 +1,8 @@
 <?php
 namespace Core;
 
+use Core\Http\Request;
+use Core\Http\Router;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 

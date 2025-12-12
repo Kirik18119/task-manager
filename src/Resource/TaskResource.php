@@ -2,8 +2,8 @@
 
 namespace App\Resource;
 
+use Core\Http\Resource;
 use App\Model\Task;
-use Core\Resource;
 
 class TaskResource extends Resource
 {

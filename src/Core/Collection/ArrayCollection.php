@@ -59,4 +59,9 @@ class ArrayCollection implements ICollection
     {
         return $this->items;
     }
+
+    public function first(): mixed
+    {
+        return $this->items[0] ?? null;
+    }
 }
